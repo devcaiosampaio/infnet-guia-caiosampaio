@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infnet-guia-caiosampaio
+
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: infnet-guia-caiosampaio
+  template:
+    metadata:
+      labels:
+        app: infnet-guia-caiosampaio
+    spec:
+      containers:
+        - name: infnet-guia-caiosampaio
+          image: devcaiosampaio/infnet-guia-caiosampaio:latest
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 20
+            periodSeconds: 10
